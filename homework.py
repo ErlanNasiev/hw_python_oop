@@ -67,7 +67,8 @@ class CashCalculator(Calculator):
             else:
                 return f"Денег нет, держись: твой долг - {abs(today_cash)} USD"
         elif currency == 'eur':
-            today_cash = round((self.limit - self.get_today_stats())/self.EURO_RATE, 2)
+            today_cash = round((self.limit - self.get_today_stats()) / 
+                self.EURO_RATE,2)
             if today_cash > 0:
                 return f"На сегодня осталось {abs(today_cash)} Euro"
             elif today_cash == 0:
@@ -89,15 +90,13 @@ class CaloriesCalculator(Calculator):
 
 
 r1 = Record(amount=145, comment='Безудержный шопинг', date='08.03.2019')
-r2 = Record(amount=1568, comment='Наполнение потребительской корзины',
-
-date='09.03.2019')
+r2 = Record(amount=1568, comment='Наполнение потребительской корзины',date='09.03.2019')
 r3 = Record(amount=691, comment='Катание на такси', date='08.03.2019')
 
 
 # Для CaloriesCalculator
 
-r4 = Record(amount=1186, comment='Кусок тортика. И еще один',date='08.02.2019')
+r4 = Record(amount = 1186, comment = 'Кусок тортика. И еще один',date='08.02.2019')
 r5 = Record(amount=84, comment='Йогурт', date='09.02.2019')
 r6 = Record(amount=1140, comment='Баночка чипсов', date='08.02.2019')
 
