@@ -92,8 +92,8 @@ class CaloriesCalculator(Calculator):
 r1 = Record(amount=145,
             comment='Безудержный шопинг', date='08.03.2019')
 r2 = Record(amount=1568,
-             comment='Наполнение потребительской корзины',
-             date='09.03.2019')
+            comment='Наполнение потребительской корзины',
+            date='09.03.2019')
 r3 = Record(amount=691, comment='Катание на такси', date='08.03.2019')
 
 
