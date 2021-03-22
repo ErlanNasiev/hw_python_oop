@@ -1,16 +1,21 @@
 import datetime as dt
 
-# what&
+
 class Record:
+
+
     def __init__(self, amount: int, comment: str, date=None):
         self.amount = amount
         self.comment = comment
         if date is None:
             self.date = dt.datetime.now().date()
         else:
+
             self.date = dt.datetime.strptime(date, "%d.%m.%Y").date()
    
 class Calculator:
+
+
     def __init__(self, limit):
         self.limit = limit
         self.records = []
@@ -32,24 +37,24 @@ class Calculator:
         return week_stats
 
 class CashCalculator(Calculator):
+
+
     USD_RATE = 60.00
     EURO_RATE = 70.00
     RUB_RATE = 1.00
  
+    
     def get_today_cash_remained(self, currency):
-        
         if currency == 'rub':
             today_cash = self.limit - self.get_today_stats()
-            
             if today_cash > 0:
                 return f'На сегодня осталось {abs(today_cash)} руб'
-            
             elif today_cash == 0:
                 return "Денег нет, держись"
             
             else:
+
                 return f"Денег нет, держись: твой долг - {abs(today_cash)} руб"
-        
         elif currency == 'usd':
             today_cash = round(
                 (self.limit - self.get_today_stats()) / self.USD_RATE, 2)
@@ -64,7 +69,8 @@ class CashCalculator(Calculator):
                 return f"Денег нет, держись: твой долг - {abs(today_cash)} USD"
  
         elif currency == 'eur':  
-            today_cash = round((self.limit - self.get_today_stats()) / self.EURO_RATE, 2)
+            today_cash = round((self.limit - self.get_today_stats())
+             / self.EURO_RATE, 2)
             
             if today_cash > 0:
                 return f"На сегодня осталось {abs(today_cash)} Euro"
@@ -78,6 +84,8 @@ class CashCalculator(Calculator):
  
  
 class CaloriesCalculator(Calculator):
+
+    
     def get_calories_remained(self):
         calorie_store = self.limit - self.get_today_stats()
         if calorie_store > 0:
@@ -91,13 +99,15 @@ class CaloriesCalculator(Calculator):
 #для Cashcalculator
 
 r1 = Record(amount =145, comment='Безудержный шопинг', date='08.03.2019' )
-r2 = Record(amount =1568, comment='Наполнение потребительской корзины', date='09.03.2019' )
+r2 = Record(amount =1568, comment='Наполнение потребительской корзины', 
+date='09.03.2019' )
 r3 = Record(amount =691, comment='Катание на такси', date='08.03.2019' )
 
 
 #Для CaloriesCalculator
 
-r4 = Record(amount =1186, comment='Кусок тортика. И еще один', date='08.02.2019' )
+r4 = Record(amount =1186, comment='Кусок тортика. И еще один', 
+date='08.02.2019' )
 r5 = Record(amount =84, comment='Йогурт', date='09.02.2019' )
 r6 = Record(amount =1140, comment='Баночка чипсов', date='08.02.2019' ) 
 
