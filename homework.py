@@ -1,7 +1,8 @@
 import datetime as dt
 
+# what&
 class Record:
-     def __init__(self, amount: int, comment: str, date=None):
+    def __init__(self, amount: int, comment: str, date=None):
         self.amount = amount
         self.comment = comment
         if date is None:
@@ -9,23 +10,18 @@ class Record:
         else:
             self.date = dt.datetime.strptime(date, "%d.%m.%Y").date()
    
-
-
 class Calculator:
     def __init__(self, limit):
         self.limit = limit
         self.records = []
- 
     def add_record(self, record):
         self.records.append(record)
- 
     def get_today_stats(self):
         today_stats = 0
         for record in self.records:
             if record.date == dt.date.today():
                 today_stats += record.amount
         return today_stats
- 
     def get_week_stats(self):
         week_stats = 0
         self.week = dt.timedelta(days=7)
