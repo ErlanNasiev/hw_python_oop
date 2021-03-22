@@ -76,6 +76,7 @@ class CashCalculator(Calculator):
             else:
                 return "Денег нет, держись: твой долг - {abs(today_cash)} Euro"
 
+
 class CaloriesCalculator(Calculator):
     def get_calories_remained(self):
         calorie_store = self.limit - self.get_today_stats()
