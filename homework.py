@@ -5,9 +5,9 @@ from typing import List, Optional
 class Record:
 
     date_format = '%d.%m.%Y'
-    
-    def __init__(self, amount: int, 
-                comment: str, date: Optional[str]= None) -> None:
+
+    def __init__(self,
+                amount: int, comment: str, date: Optional[str] = None) -> None:
         self.amount = amount
         self.comment = comment
         if date is None:
@@ -20,15 +20,15 @@ class Calculator:
 
     def __init__(self, limit: int) -> None:
         self.limit = limit
-        self.records: List = []  
+        self.records: List = []
 
-    def add_record(self, record:int) -> None:
+    def add_record(self, record: int) -> None:
         self.records.append(record)
 
     def get_today_stats(self) -> int:
         today_stats = 0
         for record in self.records:
-            if record.date == dt.date.today(): 
+            if record.date == dt.date.today():
                 today_stats += record.amount
         return today_stats
 
@@ -76,7 +76,7 @@ class CashCalculator(Calculator):
         elif cash == 0:
             return 'Денег нет, держись'
         else:
-            return 'Выберите другую валюту'        
+            return 'Выберите другую валюту'
 
 
 class CaloriesCalculator(Calculator):
