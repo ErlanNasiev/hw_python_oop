@@ -7,8 +7,8 @@ class Record:
     date_format = '%d.%m.%Y'
 
     def __init__(self,
-                amount: int, comment: str, date:
-                 Optional[str] = None) -> None:
+                    amount: int, comment: str, date:
+                    Optional[str] = None) -> None:
         self.amount = amount
         self.comment = comment
         if date is None:
