@@ -82,10 +82,12 @@ class CashCalculator(Calculator):
 class CaloriesCalculator(Calculator):
 
     def get_calories_remained(self):
-        calorie = self. get_today_remainder()
-        if calorie > 0 and calorie < self.limit:
+        today_remained = self.get_today_remainder()
+
+        if today_remained > 0:
+            today_remained = int(today_remained)
             return (
-                'Сегодня можно съесть что-нибудь ещё,'
-                f'но с общей калорийностью не более {calorie} кКал')
+                f'Сегодня можно съесть что-нибудь ещё, '
+                    f'но с общей калорийностью не более {today_remained} кКал')
         else:
             return 'Хватит есть!'
