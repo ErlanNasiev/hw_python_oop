@@ -88,6 +88,6 @@ class CaloriesCalculator(Calculator):
             today_remained = int(today_remained)
             return (
                 f'Сегодня можно съесть что-нибудь ещё, '
-                    f'но с общей калорийностью не более {today_remained} кКал')
+                f'но с общей калорийностью не более {today_remained} кКал')
         else:
             return 'Хватит есть!'
