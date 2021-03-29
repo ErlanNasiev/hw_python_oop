@@ -1,9 +1,9 @@
 import datetime as dt
-from typing import Dict,List, Optional, Tuple
+from typing import Dict, List, Optional, Tuple
 
 
 class Record:
-    DATE_FORMAT = '%d.%m.%Y'# то константа, должна быть записана заглавными буквами
+    DATE_FORMAT = '%d.%m.%Y'
 
     def __init__(self, amount: int, comment: str,
                  date: Optional[str] = None) -> None:
@@ -19,7 +19,7 @@ class Calculator:
 
     def __init__(self, limit: int) -> None:
         self.limit = limit
-        self.records: List[Tuple[int, str, Optional[str]]] = [] 
+        self.records: List[Tuple[int, str, Optional[str]]] = []
 
     def add_record(self, record: float) -> float:
         self.records.append(record)
@@ -53,7 +53,7 @@ class CashCalculator(Calculator):
         rat: Dict[str, Tuple[int, str]] = {
             'rub': ('руб', self.RUB_RATE),
             'usd': ('USD', self.USD_RATE),
-            'eur': ('Euro', self.EURO_RATE) 
+            'eur': ('Euro', self.EURO_RATE)
         }
         cash = self.get_today_remainder() / rat[currency][1]
         cash = round(cash, 2)
@@ -64,15 +64,15 @@ class CashCalculator(Calculator):
             return (
                 'На сегодня осталось '
                 f'{cash} '
-                f'{result}'
-)
+                f'{result}')
         if cash < 0:
             debt = abs(cash)
             return (
                 'Денег нет, держись: твой долг - '
-                f'{debt} '# Взятие модуля нужно выполнить отдельной строкой
+                f'{debt} '
                 f'{result}'
             )
+
 
 class CaloriesCalculator(Calculator):
 
