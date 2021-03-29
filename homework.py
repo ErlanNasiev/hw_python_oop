@@ -1,10 +1,9 @@
 import datetime as dt
-from typing import List, Optional
+from typing import Dict,List, Optional, Tuple
 
 
 class Record:
-
-    date_format = '%d.%m.%Y'
+    DATE_FORMAT = '%d.%m.%Y'# то константа, должна быть записана заглавными буквами
 
     def __init__(self, amount: int, comment: str,
                  date: Optional[str] = None) -> None:
@@ -13,32 +12,30 @@ class Record:
         if date is None:
             self.date = dt.date.today()
         else:
-            self.date = dt.datetime.strptime(date, self.date_format).date()
+            self.date = dt.datetime.strptime(date, self.DATE_FORMAT).date()
 
 
 class Calculator:
 
     def __init__(self, limit: int) -> None:
         self.limit = limit
-        self.records: List = []
+        self.records: List[Tuple[int, str, Optional[str]]] = [] 
 
-    def add_record(self, record: int) -> None:
+    def add_record(self, record: float) -> float:
         self.records.append(record)
 
-    def get_today_stats(self) -> int:
-        today_stats = 0
-        for record in self.records:
-            if record.date == dt.date.today():
-                today_stats += record.amount
-        return today_stats
+    def get_today_stats(self) -> float:
+        date_today = dt.date.today()
+        return sum(record.amount for record in self.records if record.date
+                   == date_today)
 
-    def get_week_stats(self) -> int:
+    def get_week_stats(self) -> float:
         period = dt.timedelta(days=7)
         today = dt.date.today()
         last_week = today - period
         week_stats = 0
         for record in self.records:
-            if dt.date.today() >= record.date > last_week:
+            if today >= record.date > last_week:
                 week_stats += record.amount
         return week_stats
 
@@ -52,42 +49,38 @@ class CashCalculator(Calculator):
     EURO_RATE: float = 70.00
     RUB_RATE: float = 1.00
 
-    def get_today_cash_remained(self, currency):
-        rates = {
+    def get_today_cash_remained(self, currency) -> float:
+        rat: Dict[str, Tuple[int, str]] = {
             'rub': ('руб', self.RUB_RATE),
             'usd': ('USD', self.USD_RATE),
-            'eur': ('Euro', self.EURO_RATE)
+            'eur': ('Euro', self.EURO_RATE) 
         }
-        cash = 0
-        cash = self.get_today_remainder() / rates[currency][1]
+        cash = self.get_today_remainder() / rat[currency][1]
         cash = round(cash, 2)
+        result = (rat[currency][0])
+        if cash == 0:
+            return 'Денег нет, держись'
         if cash > 0:
             return (
                 'На сегодня осталось '
-                f'{abs(cash)} '
-                f'{rates[currency][0]}'
-            )
-        elif cash < 0:
+                f'{cash} '
+                f'{result}'
+)
+        if cash < 0:
+            debt = abs(cash)
             return (
                 'Денег нет, держись: твой долг - '
-                f'{abs(cash)} '
-                f'{rates[currency][0]}'
+                f'{debt} '# Взятие модуля нужно выполнить отдельной строкой
+                f'{result}'
             )
-        elif cash == 0:
-            return 'Денег нет, держись'
-        else:
-            return 'Выберите другую валюту'
-
 
 class CaloriesCalculator(Calculator):
 
-    def get_calories_remained(self):
+    def get_calories_remained(self) -> float:
         today_remained = self.get_today_remainder()
 
         if today_remained > 0:
-            today_remained = int(today_remained)
             return (
-                f'Сегодня можно съесть что-нибудь ещё, '
+                'Сегодня можно съесть что-нибудь ещё, '
                 f'но с общей калорийностью не более {today_remained} кКал')
-        else:
-            return 'Хватит есть!'
+        return 'Хватит есть!'
